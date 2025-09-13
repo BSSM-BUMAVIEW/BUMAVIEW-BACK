@@ -17,3 +17,10 @@ spring:
           format-sql: true
           default_batch_fetch_size: 500
       open-in-view: false
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
