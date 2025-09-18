@@ -2,6 +2,8 @@ package com.bssm.bumaview.domain.user.domain;
 
 public enum UserType {
 
-    GOOGLE;
+    GOOGLE,
+    KAKAO,
+    NAVER
 
 }
