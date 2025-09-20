@@ -1,10 +1,12 @@
 package com.bssm.bumaview.global.config;
 
+import com.bssm.bumaview.domain.user.domain.repository.UserRepository;
 import com.bssm.bumaview.global.jwt.service.TokenManager;
 import com.bssm.bumaview.global.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.bssm.bumaview.global.oauth2.handler.OAuth2AuthenticationFailureHandler;
 import com.bssm.bumaview.global.oauth2.handler.OAuth2AuthenticationSuccessHandler;
 import com.bssm.bumaview.global.oauth2.service.CustomOAuth2UserService;
+import com.bssm.bumaview.global.oauth2.user.oauth2.OAuth2UserUnlinkManager;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -27,9 +29,10 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 public class SecurityConfig {
 
     private final CustomOAuth2UserService customOAuth2UserService;
-    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
     private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
     private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+    private final UserRepository userRepository;
+    private final OAuth2UserUnlinkManager oAuth2UserUnlinkManager;
 
     @Value("${token.access-token-expiration-time}")
     private String accessTokenExpirationTime;
@@ -67,10 +70,21 @@ public class SecurityConfig {
                 .oauth2Login(configure ->
                         configure.authorizationEndpoint(config -> config.authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository))
                                 .userInfoEndpoint(config -> config.userService(customOAuth2UserService))
-                                .successHandler(oAuth2AuthenticationSuccessHandler)
+                                .successHandler(oAuth2AuthenticationSuccessHandler())
                                 .failureHandler(oAuth2AuthenticationFailureHandler)
                 );
 
         return http.build();
     }
+
+    @Bean
+    public OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler() {
+        return new OAuth2AuthenticationSuccessHandler(
+                httpCookieOAuth2AuthorizationRequestRepository,
+                oAuth2UserUnlinkManager,
+                userRepository,
+                tokenManager()
+        );
+    }
+
 }

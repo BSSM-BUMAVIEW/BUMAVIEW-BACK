@@ -26,7 +26,6 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
     private String password;
 
     private Date birth;
@@ -40,6 +39,7 @@ public class User {
 
     private String profile;
 
+    @Enumerated(EnumType.STRING)
     private UserType userType;
 
     @Builder
@@ -53,4 +53,8 @@ public class User {
         this.role = role;
     }
 
+    public void updateRefreshToken(String refreshToken, LocalDateTime expirationTime) {
+        this.refreshToken = refreshToken;
+        this.tokenExpirationTime = expirationTime;
+    }
 }
