@@ -8,6 +8,7 @@ import com.bssm.bumaview.domain.question.application.exception.QuestionNotFoundE
 import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
 import com.bssm.bumaview.domain.question.presentation.dto.QuestionRequest;
+import com.bssm.bumaview.domain.question.presentation.dto.QuestionUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +56,7 @@ public class QuestionService {
     }
 
     @Transactional
-    public QuestionResponse updateQuestion(Long questionId, QuestionRequest request, Long userId, String role) {
+    public QuestionResponse updateQuestion(Long questionId, QuestionUpdateRequest request, Long userId, String role) {
 
         Question question = getAuthorizedQuestion(questionId, userId, role);
 
