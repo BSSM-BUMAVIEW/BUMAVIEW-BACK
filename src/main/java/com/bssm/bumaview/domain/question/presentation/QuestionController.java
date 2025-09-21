@@ -5,6 +5,7 @@ import com.bssm.bumaview.domain.question.application.dto.QuestionResponse;
 import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
 import com.bssm.bumaview.domain.question.presentation.dto.QuestionRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,7 +24,7 @@ public class QuestionController {
 
     @PostMapping
     public ResponseEntity<QuestionResponse> createQuestion(
-            @RequestBody QuestionRequest questionRequest) {
+            @Valid @RequestBody QuestionRequest questionRequest) {
 
         QuestionResponse questionResponse = questionService.createQuestion(questionRequest);
 
@@ -70,7 +71,7 @@ public class QuestionController {
     @PutMapping("/{id}")
     public ResponseEntity<QuestionResponse> updateQuestion(
             @PathVariable Long id,
-            @RequestBody QuestionRequest request,
+            @Valid @RequestBody QuestionRequest request,
             @AuthenticationPrincipal UserDetails user
     ) {
         Long userId = Long.parseLong(user.getUsername());
