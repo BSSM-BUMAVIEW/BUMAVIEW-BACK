@@ -1,9 +1,13 @@
 package com.bssm.bumaview.domain.question.application;
 
 import com.bssm.bumaview.domain.question.application.dto.QuestionResponse;
+import com.bssm.bumaview.domain.question.application.exception.QuestionForbiddenException;
+import com.bssm.bumaview.domain.question.application.exception.QuestionNotFoundException;
 import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
 import com.bssm.bumaview.domain.question.presentation.dto.QuestionRequest;
+import com.bssm.bumaview.global.error.ErrorCode;
+import com.bssm.bumaview.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
@@ -40,15 +44,23 @@ public class QuestionService {
     @Transactional
     public void deleteQuestion(Long questionId, Long currentUserId, String role) {
         Question question = questionRepository.findById(questionId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 질문입니다."));
+                .orElseThrow(()-> QuestionNotFoundException.EXCEPTION);
+
+        if (!question.getUserId().equals(currentUserId) && !"ADMIN".equals(role)) {
+            throw QuestionForbiddenException.EXCEPTION;
+        }
+
         questionRepository.delete(question);
     }
 
     @Transactional
     public QuestionResponse updateQuestion(Long id, QuestionRequest request, Long userId, String role) {
         Question question = questionRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(()->QuestionNotFoundException.EXCEPTION);
 
+        if (!question.getUserId().equals(userId) && !"ADMIN".equals(role)) {
+            throw QuestionForbiddenException.EXCEPTION;
+        }
 
         question.update(request.content(), request.category(), request.questionAt());
         return QuestionResponse.from(question);
