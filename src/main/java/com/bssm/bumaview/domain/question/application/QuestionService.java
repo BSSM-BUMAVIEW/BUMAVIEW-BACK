@@ -43,27 +43,27 @@ public class QuestionService {
 
     @Transactional
     public void deleteQuestion(Long questionId, Long currentUserId, String role) {
-        Question question = questionRepository.findById(questionId)
-                .orElseThrow(()-> QuestionNotFoundException.EXCEPTION);
-
-        if (!question.getUserId().equals(currentUserId) && !"ADMIN".equals(role)) {
-            throw QuestionForbiddenException.EXCEPTION;
-        }
+        Question question = getAuthorizedQuestion(questionId, currentUserId, role);
 
         questionRepository.delete(question);
     }
 
     @Transactional
     public QuestionResponse updateQuestion(Long id, QuestionRequest request, Long userId, String role) {
-        Question question = questionRepository.findById(id)
-                .orElseThrow(()->QuestionNotFoundException.EXCEPTION);
+        Question question = getAuthorizedQuestion(id, userId, role);
+        question.update(request.content(), request.category(), request.questionAt());
+        return QuestionResponse.from(question);
+    }
+
+    private Question getAuthorizedQuestion(Long questionId, Long userId, String role) {
+
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> QuestionNotFoundException.EXCEPTION);
 
         if (!question.getUserId().equals(userId) && !"ADMIN".equals(role)) {
             throw QuestionForbiddenException.EXCEPTION;
         }
-
-        question.update(request.content(), request.category(), request.questionAt());
-        return QuestionResponse.from(question);
+        return question;
     }
 
 }
