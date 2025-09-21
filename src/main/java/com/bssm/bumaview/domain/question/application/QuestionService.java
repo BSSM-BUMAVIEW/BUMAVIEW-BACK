@@ -1,5 +1,7 @@
 package com.bssm.bumaview.domain.question.application;
 
+import com.bssm.bumaview.domain.company.domain.Company;
+import com.bssm.bumaview.domain.company.domain.repository.CompanyRepository;
 import com.bssm.bumaview.domain.question.application.dto.QuestionResponse;
 import com.bssm.bumaview.domain.question.application.exception.QuestionForbiddenException;
 import com.bssm.bumaview.domain.question.application.exception.QuestionNotFoundException;
@@ -17,12 +19,19 @@ import java.util.List;
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
+    //리펙터링 필요
+    private final CompanyRepository companyRepository;
 
     @Transactional
     public QuestionResponse createQuestion(Long userId, QuestionRequest questionRequest) {
+
+        //리펙터링 필요
+        Company company = companyRepository.findByName(questionRequest.companyName())
+                .orElseThrow();
+
         Question question = Question.of(
                 userId,
-                questionRequest.companyId(),
+                company,
                 questionRequest.content(),
                 questionRequest.category(),
                 questionRequest.questionAt()
@@ -47,7 +56,9 @@ public class QuestionService {
 
     @Transactional
     public QuestionResponse updateQuestion(Long questionId, QuestionRequest request, Long userId, String role) {
+
         Question question = getAuthorizedQuestion(questionId, userId, role);
+
         question.update(request.content(), request.category(), request.questionAt());
         return QuestionResponse.from(question);
     }

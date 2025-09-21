@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotNull;
 
 public record QuestionRequest(
 
-        @NotNull (message = "회사아이디는 필수입니다.")
-        Long companyId,
+        @NotNull (message = "회사 이름는 필수입니다.")
+        String companyName,
 
         @NotBlank (message = "질문 내용은 필수입니다.")
         String content,

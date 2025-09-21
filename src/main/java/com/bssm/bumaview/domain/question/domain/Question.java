@@ -1,5 +1,6 @@
 package com.bssm.bumaview.domain.question.domain;
 
+import com.bssm.bumaview.domain.company.domain.Company;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,9 @@ public class Question {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(name = "company_id")
-    private Long companyId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
 
     @Column(nullable = false, length = 1000)
     private String content;
@@ -32,10 +34,12 @@ public class Question {
     @Column(name = "question_at", nullable = false)
     private String questionAt;
 
-    public Question(Long userId, Long companyId, String content, String category, String questionAt) {
+    public Question(Long userId, Company company, String content, String category, String questionAt) {
         this.userId = userId;
-        this.companyId = companyId;
+        this.company = company;
         this.content = content;
+        this.category = category;
+        this.questionAt = questionAt;
     }
 
     public void update(String content, String category, String questionAt) {
@@ -45,8 +49,8 @@ public class Question {
     }
 
 
-    public static Question of(Long userId, Long companyId, String content, String category, String questionAt) {
-        return new Question(userId, companyId, content, category, questionAt);
+    public static Question of(Long userId, Company company, String content, String category, String questionAt) {
+        return new Question(userId, company, content, category, questionAt);
     }
 
 }
