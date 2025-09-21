@@ -22,9 +22,9 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
 
     @Transactional
-    public QuestionResponse createQuestion(QuestionRequest questionRequest) {
+    public QuestionResponse createQuestion(Long userId, QuestionRequest questionRequest) {
         Question question = Question.of(
-                questionRequest.userId(),
+                userId,
                 questionRequest.companyId(),
                 questionRequest.content(),
                 questionRequest.category(),

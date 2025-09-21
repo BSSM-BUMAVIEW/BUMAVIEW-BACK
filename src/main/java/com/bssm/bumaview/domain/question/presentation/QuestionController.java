@@ -24,9 +24,12 @@ public class QuestionController {
 
     @PostMapping
     public ResponseEntity<QuestionResponse> createQuestion(
-            @Valid @RequestBody QuestionRequest questionRequest) {
+            @Valid @RequestBody QuestionRequest questionRequest,
+            @AuthenticationPrincipal UserDetails user
+    ) {
 
-        QuestionResponse questionResponse = questionService.createQuestion(questionRequest);
+        Long userId = Long.valueOf(user.getUsername());
+        QuestionResponse questionResponse = questionService.createQuestion(userId, questionRequest);
 
         return ResponseEntity.ok(questionResponse);
     }

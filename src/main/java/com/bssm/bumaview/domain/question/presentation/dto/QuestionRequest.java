@@ -4,8 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record QuestionRequest(
-        @NotNull (message = "유저아이디는 필수입니다.")
-        Long userId,
 
         @NotNull (message = "회사아이디는 필수입니다.")
         Long companyId,
