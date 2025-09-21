@@ -5,10 +5,9 @@ import com.bssm.bumaview.domain.question.application.dto.QuestionResponse;
 import com.bssm.bumaview.domain.question.presentation.dto.QuestionRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("question")
@@ -20,9 +19,15 @@ public class QuestionController {
     @PostMapping
     public ResponseEntity<QuestionResponse> createQuestion(
             @RequestBody QuestionRequest questionRequest) {
-        
+
         QuestionResponse questionResponse = questionService.createQuestion(questionRequest);
 
         return ResponseEntity.ok(questionResponse);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<QuestionResponse>> getAllQuestions() {
+        List<QuestionResponse> questions = questionService.getAllQuestions();
+        return ResponseEntity.ok(questions);
     }
 }
