@@ -5,6 +5,7 @@ import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
 import com.bssm.bumaview.domain.question.presentation.dto.QuestionRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,4 +43,15 @@ public class QuestionService {
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 질문입니다."));
         questionRepository.delete(question);
     }
+
+    @Transactional
+    public QuestionResponse updateQuestion(Long id, QuestionRequest request, Long userId, String role) {
+        Question question = questionRepository.findById(id)
+                .orElseThrow();
+
+
+        question.update(request.content(), request.category(), request.questionAt());
+        return QuestionResponse.from(question);
+    }
+
 }

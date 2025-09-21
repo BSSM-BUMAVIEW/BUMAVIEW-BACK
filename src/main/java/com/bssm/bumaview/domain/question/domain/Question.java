@@ -38,6 +38,13 @@ public class Question {
         this.content = content;
     }
 
+    public void update(String content, String category, String questionAt) {
+        this.content = content;
+        this.category = category;
+        this.questionAt = questionAt;
+    }
+
+
     public static Question of(Long userId, Long companyId, String content, String category, String questionAt) {
         return new Question(userId, companyId, content, category, questionAt);
     }
