@@ -1,6 +1,7 @@
 package com.bssm.bumaview.global.config;
 
 import com.bssm.bumaview.domain.user.domain.repository.UserRepository;
+import com.bssm.bumaview.global.jwt.filter.JwtAuthenticationFilter;
 import com.bssm.bumaview.global.jwt.service.TokenManager;
 import com.bssm.bumaview.global.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.bssm.bumaview.global.oauth2.handler.OAuth2AuthenticationFailureHandler;
@@ -22,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -61,11 +63,11 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                       /* .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/user/**").hasRole("USER")
+                        .requestMatchers("/oauth2/callback").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
-                        .anyRequest().authenticated()*/
-                        .anyRequest().permitAll()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/user/**").hasRole("USER")
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(sessions -> sessions.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2Login(configure ->
@@ -73,6 +75,10 @@ public class SecurityConfig {
                                 .userInfoEndpoint(config -> config.userService(customOAuth2UserService))
                                 .successHandler(oAuth2AuthenticationSuccessHandler())
                                 .failureHandler(oAuth2AuthenticationFailureHandler)
+                )
+                .addFilterBefore(
+                        new JwtAuthenticationFilter(tokenManager()),
+                        UsernamePasswordAuthenticationFilter.class
                 );
 
         return http.build();

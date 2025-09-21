@@ -13,6 +13,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
@@ -104,4 +107,28 @@ public class TokenManager {
             throw new AuthenticationException(ErrorCode.NOT_VALID_TOKEN);
         }
     }
+
+    public boolean isValidToken(String token) {
+        try {
+            validateToken(token);
+            return true;
+        } catch (AuthenticationException e) {
+            return false;
+        }
+    }
+
+    public Authentication getAuthentication(String token) {
+        Claims claims = getTokenClaims(token);
+        Long userId = claims.get("userId", Long.class);
+        String role = claims.get("role", String.class);
+
+        UserDetails userDetails = org.springframework.security.core.userdetails.User
+                .withUsername(String.valueOf(userId))
+                .password("") // 비밀번호는 사용하지 않음
+                .roles(role)
+                .build();
+
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+    }
+
 }

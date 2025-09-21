@@ -62,7 +62,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         String mode = CookieUtils.getCookie(request, MODE_PARAM_COOKIE_NAME)
                 .map(Cookie::getValue)
-                .orElse("login");
+                .orElse("");
 
         log.info("OAuth2 SuccessHandler mode = {}", mode);
 
