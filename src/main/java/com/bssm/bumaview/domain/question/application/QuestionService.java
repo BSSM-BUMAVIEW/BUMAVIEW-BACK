@@ -6,10 +6,7 @@ import com.bssm.bumaview.domain.question.application.exception.QuestionNotFoundE
 import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
 import com.bssm.bumaview.domain.question.presentation.dto.QuestionRequest;
-import com.bssm.bumaview.global.error.ErrorCode;
-import com.bssm.bumaview.global.error.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
