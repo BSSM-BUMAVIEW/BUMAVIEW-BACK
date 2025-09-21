@@ -3,5 +3,7 @@ package com.bssm.bumaview.domain.question.presentation.dto;
 public record QuestionRequest(
         Long userId,
         Long companyId,
-        String content
+        String content,
+        String category,
+        String questionAt
 ) {}

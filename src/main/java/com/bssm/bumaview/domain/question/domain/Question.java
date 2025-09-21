@@ -26,14 +26,20 @@ public class Question {
     @Column(nullable = false, length = 1000)
     private String content;
 
-    public Question(Long userId, Long companyId, String content) {
+    @Column(nullable = false)
+    private String category;
+
+    @Column(name = "question_at", nullable = false)
+    private String questionAt;
+
+    public Question(Long userId, Long companyId, String content, String category, String questionAt) {
         this.userId = userId;
         this.companyId = companyId;
         this.content = content;
     }
 
-    public static Question of(Long userId, Long companyId, String content) {
-        return new Question(userId, companyId, content);
+    public static Question of(Long userId, Long companyId, String content, String category, String questionAt) {
+        return new Question(userId, companyId, content, category, questionAt);
     }
 
 }

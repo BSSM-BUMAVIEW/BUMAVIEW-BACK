@@ -19,7 +19,9 @@ public class QuestionService {
         Question question = Question.of(
                 questionRequest.userId(),
                 questionRequest.companyId(),
-                questionRequest.content()
+                questionRequest.content(),
+                questionRequest.category(),
+                questionRequest.questionAt()
         );
         Question saved = questionRepository.save(question);
         return QuestionResponse.from(saved);
