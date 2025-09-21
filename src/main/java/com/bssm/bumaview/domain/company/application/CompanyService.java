@@ -7,6 +7,8 @@ import com.bssm.bumaview.domain.company.presentation.dto.CompanyRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CompanyService {
@@ -21,5 +23,11 @@ public class CompanyService {
         );
         Company saved = companyRepository.save(company);
         return CompanyResponse.from(saved);
+    }
+
+    public List<CompanyResponse> getAllCompanies() {
+        return companyRepository.findAll().stream()
+                .map(CompanyResponse::from)
+                .toList();
     }
 }
