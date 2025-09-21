@@ -1,6 +1,5 @@
 package com.bssm.bumaview.domain.company.domain;
 
-import com.bssm.bumaview.domain.question.domain.Question;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

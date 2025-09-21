@@ -4,8 +4,6 @@ import com.bssm.bumaview.domain.company.application.dto.CompanyResponse;
 import com.bssm.bumaview.domain.company.domain.Company;
 import com.bssm.bumaview.domain.company.domain.repository.CompanyRepository;
 import com.bssm.bumaview.domain.company.presentation.dto.CompanyRequest;
-import com.bssm.bumaview.domain.question.application.dto.QuestionResponse;
-import com.bssm.bumaview.domain.question.domain.Question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
