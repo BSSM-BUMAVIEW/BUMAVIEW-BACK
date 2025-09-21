@@ -42,15 +42,15 @@ public class QuestionService {
     }
 
     @Transactional
-    public void deleteQuestion(Long questionId, Long currentUserId, String role) {
-        Question question = getAuthorizedQuestion(questionId, currentUserId, role);
+    public void deleteQuestion(Long questionId, Long userId, String role) {
+        Question question = getAuthorizedQuestion(questionId, userId, role);
 
         questionRepository.delete(question);
     }
 
     @Transactional
-    public QuestionResponse updateQuestion(Long id, QuestionRequest request, Long userId, String role) {
-        Question question = getAuthorizedQuestion(id, userId, role);
+    public QuestionResponse updateQuestion(Long questionId, QuestionRequest request, Long userId, String role) {
+        Question question = getAuthorizedQuestion(questionId, userId, role);
         question.update(request.content(), request.category(), request.questionAt());
         return QuestionResponse.from(question);
     }
