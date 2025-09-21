@@ -5,8 +5,11 @@ import com.bssm.bumaview.domain.question.application.dto.QuestionResponse;
 import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
 import com.bssm.bumaview.domain.question.presentation.dto.QuestionRequest;
+import com.bssm.bumaview.global.oauth2.service.OAuth2UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,4 +54,18 @@ public class QuestionController {
         List<Question> questions = questionRepository.findByCompanyId(companyId);
         return ResponseEntity.ok(questions.stream().map(QuestionResponse::from).toList());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteQuestion(
+            @PathVariable Long id,
+            @AuthenticationPrincipal UserDetails user
+    ) {
+        Long userId = Long.parseLong(user.getUsername());
+        String role = user.getAuthorities().stream()
+                .findFirst().get().getAuthority(); // 예: ROLE_USER 또는 ROLE_ADMIN
+
+        questionService.deleteQuestion(id, userId, role);
+        return ResponseEntity.noContent().build();
+    }
+
 }

@@ -36,4 +36,10 @@ public class QuestionService {
                 .toList();
     }
 
+    @Transactional
+    public void deleteQuestion(Long questionId, Long currentUserId, String role) {
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 질문입니다."));
+        questionRepository.delete(question);
+    }
 }
