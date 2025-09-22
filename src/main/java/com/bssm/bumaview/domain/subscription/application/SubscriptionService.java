@@ -6,6 +6,7 @@ import com.bssm.bumaview.domain.subscription.application.mail.MailService;
 import com.bssm.bumaview.domain.subscription.domain.MailSubscription;
 import com.bssm.bumaview.domain.subscription.domain.repository.MailSubscriptionRepository;
 import com.bssm.bumaview.domain.user.domain.User;
+import com.bssm.bumaview.domain.user.domain.exception.UserNotFoundException;
 import com.bssm.bumaview.domain.user.domain.repository.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ public class SubscriptionService {
     @Transactional
     public void subscribe(Long loginUserId, String category) {
         User user = userRepository.findById(loginUserId)
-                .orElseThrow();
+                .orElseThrow(()-> UserNotFoundException.EXCEPTION);
 
         MailSubscription sub = subscriptionRepository.findByUserIdAndCategory(loginUserId, category)
                 .orElseGet(() -> MailSubscription.builder()
