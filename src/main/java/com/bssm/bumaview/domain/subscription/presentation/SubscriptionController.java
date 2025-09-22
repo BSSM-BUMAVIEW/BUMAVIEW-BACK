@@ -31,6 +31,14 @@ public class SubscriptionController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/send-now")
+    public ResponseEntity<Void> sendDailyNow(@AuthenticationPrincipal UserDetails user) {
+        Long userId = Long.valueOf(user.getUsername());
+        subscriptionService.sendDailyQuestionNow(userId);
+        return ResponseEntity.ok().build();
+    }
+
+
     @GetMapping("/me")
     public ResponseEntity<?> mySubs(@AuthenticationPrincipal UserDetails user) {
         Long userId = Long.valueOf(user.getUsername());

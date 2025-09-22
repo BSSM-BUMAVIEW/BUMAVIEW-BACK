@@ -52,6 +52,15 @@ public class SubscriptionService {
         return subscriptionRepository.findAllByUserId(loginUserId);
     }
 
+    @Transactional
+    public void sendDailyQuestionNow(Long loginUserId) {
+        List<MailSubscription> subs = subscriptionRepository.findAllByUserId(loginUserId);
+
+        subs.stream()
+                .filter(MailSubscription::isActive)
+                .forEach(this::sendDailyQuestionTo);
+    }
+
     /**
      * 매일 보낼 때 사용
      */
