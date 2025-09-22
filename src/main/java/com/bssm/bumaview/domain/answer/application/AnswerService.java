@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AnswerService {
@@ -35,5 +37,13 @@ public class AnswerService {
         answerRepository.save(answer);
 
         return AnswerResponse.from(answer);
+    }
+
+    @Transactional(readOnly = true)
+    public List<AnswerResponse> getAnswersOrderByLikes() {
+        List<Answer> answers = answerRepository.findAllOrderByLikeCountDesc();
+        return answers.stream()
+                .map(AnswerResponse::from)
+                .toList();
     }
 }

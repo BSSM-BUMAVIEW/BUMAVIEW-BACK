@@ -9,6 +9,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("answers")
 @RequiredArgsConstructor
@@ -24,5 +26,10 @@ public class AnswerController {
         Long userId = Long.parseLong(user.getUsername());
         AnswerResponse response = answerService.createAnswer(userId, request);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/top")
+    public ResponseEntity<List<AnswerResponse>> getAnswersOrderByLikes() {
+        return ResponseEntity.ok(answerService.getAnswersOrderByLikes());
     }
 }
