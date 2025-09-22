@@ -24,6 +24,11 @@ public enum ErrorCode {
 
     //Subscription
     SUBSCRIPTION_NOT_FOUND(HttpStatus.NOT_FOUND, "S-001", "구독 정보를 찾을 수 없습니다."),
+
+    //Answer
+    ANSWER_NOT_FOUND(HttpStatus.NOT_FOUND, "A-001", "존재하지 않는 답변입니다."),
+
+
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

@@ -1,5 +1,6 @@
 package com.bssm.bumaview.domain.like.application;
 
+import com.bssm.bumaview.domain.answer.application.exception.AnswerNotFoundException;
 import com.bssm.bumaview.domain.answer.domain.Answer;
 import com.bssm.bumaview.domain.answer.domain.repository.AnswerRepository;
 import com.bssm.bumaview.domain.like.domain.Like;
@@ -25,7 +26,7 @@ public class LikeService {
                 .orElseThrow(()-> UserNotFoundException.EXCEPTION);
 
         Answer answer = answerRepository.findById(answerId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 답변"));
+                .orElseThrow(() -> AnswerNotFoundException.EXCEPTION);
 
         if (likeRepository.existsByUserIdAndAnswerId(userId, answerId)) {
             throw new IllegalStateException("이미 좋아요를 눌렀습니다.");
