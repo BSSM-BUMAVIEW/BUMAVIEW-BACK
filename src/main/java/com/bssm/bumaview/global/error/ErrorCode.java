@@ -19,6 +19,8 @@ public enum ErrorCode {
     //Mail
     MAIL_SEND_FAIL(HttpStatus.INTERNAL_SERVER_ERROR, "M-001", "메일 발송 실패"),
 
+    //Subscription
+    SUBSCRIPTION_NOT_FOUND(HttpStatus.NOT_FOUND, "S-001", "구독 정보를 찾을 수 없습니다."),
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

@@ -1,7 +1,7 @@
 package com.bssm.bumaview.domain.subscription.application;
 
-import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
+import com.bssm.bumaview.domain.subscription.application.exception.SubscriptionNotFoundException;
 import com.bssm.bumaview.domain.subscription.application.mail.MailService;
 import com.bssm.bumaview.domain.subscription.domain.MailSubscription;
 import com.bssm.bumaview.domain.subscription.domain.repository.MailSubscriptionRepository;
@@ -41,7 +41,7 @@ public class SubscriptionService {
     @Transactional
     public void unsubscribe(Long loginUserId, String category) {
         MailSubscription sub = subscriptionRepository.findByUserIdAndCategory(loginUserId, category)
-                .orElseThrow();
+                .orElseThrow(() -> SubscriptionNotFoundException.EXCEPTION);
         sub.deactivate();
         subscriptionRepository.save(sub);
     }
