@@ -28,6 +28,9 @@ public enum ErrorCode {
     //Answer
     ANSWER_NOT_FOUND(HttpStatus.NOT_FOUND, "A-001", "존재하지 않는 답변입니다."),
 
+    // Like
+    LIKE_ALREADY_EXISTS(HttpStatus.CONFLICT, "L-001", "이미 좋아요를 눌렀습니다."),
+    LIKE_NOT_FOUND(HttpStatus.NOT_FOUND, "L-002", "좋아요를 누르지 않았습니다."),
 
     ;
 

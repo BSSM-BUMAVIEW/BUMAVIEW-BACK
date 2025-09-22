@@ -3,6 +3,8 @@ package com.bssm.bumaview.domain.like.application;
 import com.bssm.bumaview.domain.answer.application.exception.AnswerNotFoundException;
 import com.bssm.bumaview.domain.answer.domain.Answer;
 import com.bssm.bumaview.domain.answer.domain.repository.AnswerRepository;
+import com.bssm.bumaview.domain.like.application.exception.LikeAlreadyExistsException;
+import com.bssm.bumaview.domain.like.application.exception.LikeNotFoundException;
 import com.bssm.bumaview.domain.like.domain.Like;
 import com.bssm.bumaview.domain.like.domain.repository.LikeRepository;
 import com.bssm.bumaview.domain.user.domain.User;
@@ -29,7 +31,7 @@ public class LikeService {
                 .orElseThrow(() -> AnswerNotFoundException.EXCEPTION);
 
         if (likeRepository.existsByUserIdAndAnswerId(userId, answerId)) {
-            throw new IllegalStateException("이미 좋아요를 눌렀습니다.");
+            throw LikeAlreadyExistsException.EXCEPTION;
         }
 
         Like like = Like.create(user, answer);
@@ -39,7 +41,7 @@ public class LikeService {
     @Transactional
     public void unlikeAnswer(Long userId, Long answerId) {
         Like like = likeRepository.findByUserIdAndAnswerId(userId, answerId)
-                .orElseThrow(() -> new IllegalStateException("좋아요를 누르지 않았습니다."));
+                .orElseThrow(()-> LikeNotFoundException.EXCEPTION);
 
         likeRepository.delete(like);
     }
