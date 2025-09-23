@@ -2,6 +2,7 @@ package com.bssm.bumaview.domain.subscription.presentation;
 
 import com.bssm.bumaview.domain.subscription.application.SubscriptionService;
 import com.bssm.bumaview.domain.subscription.presentation.dto.SubscribeRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,7 +17,7 @@ public class SubscriptionController {
     private final SubscriptionService subscriptionService;
 
     @PostMapping
-    public ResponseEntity<Void> subscribe(@RequestBody SubscribeRequest subscribeRequest,
+    public ResponseEntity<Void> subscribe(@RequestBody @Valid SubscribeRequest subscribeRequest,
                                           @AuthenticationPrincipal UserDetails user) {
         Long userId = Long.valueOf(user.getUsername());
         subscriptionService.subscribe(userId, subscribeRequest.category());
