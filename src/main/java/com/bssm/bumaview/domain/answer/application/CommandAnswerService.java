@@ -12,7 +12,6 @@ import com.bssm.bumaview.domain.user.domain.exception.UserNotFoundException;
 import com.bssm.bumaview.domain.user.domain.repository.UserRepository;
 import com.bssm.bumaview.global.annotation.CustomService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 
 @CustomService
 @RequiredArgsConstructor
