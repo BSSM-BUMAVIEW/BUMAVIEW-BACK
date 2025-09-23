@@ -9,21 +9,17 @@ import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
 import com.bssm.bumaview.domain.question.presentation.dto.QuestionRequest;
 import com.bssm.bumaview.domain.question.presentation.dto.QuestionUpdateRequest;
+import com.bssm.bumaview.global.annotation.CustomService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
-@Service
+@CustomService
 @RequiredArgsConstructor
-public class QuestionService {
+public class CommandQuestionService {
 
     private final QuestionRepository questionRepository;
     //리펙터링 필요
     private final CompanyRepository companyRepository;
 
-    @Transactional
     public QuestionResponse createQuestion(Long userId, QuestionRequest questionRequest) {
 
         //리펙터링 필요
@@ -41,21 +37,12 @@ public class QuestionService {
         return QuestionResponse.from(saved);
     }
 
-    @Transactional(readOnly = true)
-    public List<QuestionResponse> getAllQuestions() {
-        return questionRepository.findAll().stream()
-                .map(QuestionResponse::from)
-                .toList();
-    }
-
-    @Transactional
     public void deleteQuestion(Long questionId, Long userId, String role) {
         Question question = getAuthorizedQuestion(questionId, userId, role);
 
         questionRepository.delete(question);
     }
 
-    @Transactional
     public QuestionResponse updateQuestion(Long questionId, QuestionUpdateRequest request, Long userId, String role) {
 
         Question question = getAuthorizedQuestion(questionId, userId, role);

@@ -1,43 +1,29 @@
 package com.bssm.bumaview.domain.question.presentation;
 
-import com.bssm.bumaview.domain.question.application.QuestionService;
+import com.bssm.bumaview.domain.question.application.QueryQuestionService;
 import com.bssm.bumaview.domain.question.application.dto.QuestionResponse;
 import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
-import com.bssm.bumaview.domain.question.presentation.dto.QuestionRequest;
-import com.bssm.bumaview.domain.question.presentation.dto.QuestionUpdateRequest;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("question")
 @RequiredArgsConstructor
-public class QuestionController {
+public class QueryQuestionController {
 
-    private final QuestionService questionService;
+    private final QueryQuestionService queryQuestionService;
     private final QuestionRepository questionRepository;
-
-    @PostMapping
-    public ResponseEntity<QuestionResponse> createQuestion(
-            @Valid @RequestBody QuestionRequest questionRequest,
-            @AuthenticationPrincipal UserDetails user
-    ) {
-
-        Long userId = Long.valueOf(user.getUsername());
-        QuestionResponse questionResponse = questionService.createQuestion(userId, questionRequest);
-
-        return ResponseEntity.ok(questionResponse);
-    }
 
     @GetMapping
     public ResponseEntity<List<QuestionResponse>> getAllQuestions() {
-        List<QuestionResponse> questions = questionService.getAllQuestions();
+        List<QuestionResponse> questions = queryQuestionService.getAllQuestions();
         return ResponseEntity.ok(questions);
     }
 
@@ -81,33 +67,4 @@ public class QuestionController {
         Long count = questionRepository.countByCompanyId(companyId);
         return ResponseEntity.ok(count);
     }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteQuestion(
-            @PathVariable Long id,
-            @AuthenticationPrincipal UserDetails user
-    ) {
-        Long userId = Long.parseLong(user.getUsername());
-        String role = user.getAuthorities().stream()
-                .findFirst().get().getAuthority();
-
-        questionService.deleteQuestion(id, userId, role);
-        return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<QuestionResponse> updateQuestion(
-            @PathVariable Long id,
-            @Valid @RequestBody QuestionUpdateRequest request,
-            @AuthenticationPrincipal UserDetails user
-    ) {
-        Long userId = Long.parseLong(user.getUsername());
-        String role = user.getAuthorities().stream()
-                .findFirst().get().getAuthority();
-
-        QuestionResponse updated = questionService.updateQuestion(id, request, userId, role);
-        return ResponseEntity.ok(updated);
-    }
-
-
 }
