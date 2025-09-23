@@ -3,6 +3,7 @@ package com.bssm.bumaview.domain.answer.presentation;
 import com.bssm.bumaview.domain.answer.application.AnswerService;
 import com.bssm.bumaview.domain.answer.application.dto.AnswerResponse;
 import com.bssm.bumaview.domain.answer.presentation.dto.AnswerRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,7 +21,7 @@ public class AnswerController {
 
     @PostMapping
     public ResponseEntity<AnswerResponse> createAnswer(
-            @RequestBody AnswerRequest request,
+            @RequestBody @Valid AnswerRequest request,
             @AuthenticationPrincipal UserDetails user
     ) {
         Long userId = Long.parseLong(user.getUsername());
