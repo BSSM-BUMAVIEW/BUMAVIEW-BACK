@@ -1,6 +1,6 @@
 package com.bssm.bumaview.domain.subscription.presentation;
 
-import com.bssm.bumaview.domain.subscription.application.SubscriptionService;
+import com.bssm.bumaview.domain.subscription.application.CommandSubscriptionService;
 import com.bssm.bumaview.domain.subscription.presentation.dto.SubscribeRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/subscriptions")
 @RequiredArgsConstructor
-public class SubscriptionController {
+public class CommandSubscriptionController {
 
-    private final SubscriptionService subscriptionService;
+    private final CommandSubscriptionService subscriptionService;
 
     @PostMapping
     public ResponseEntity<Void> subscribe(@RequestBody @Valid SubscribeRequest subscribeRequest,
@@ -37,12 +37,5 @@ public class SubscriptionController {
         Long userId = Long.valueOf(user.getUsername());
         subscriptionService.sendDailyQuestionNow(userId);
         return ResponseEntity.ok().build();
-    }
-
-
-    @GetMapping("/me")
-    public ResponseEntity<?> mySubs(@AuthenticationPrincipal UserDetails user) {
-        Long userId = Long.valueOf(user.getUsername());
-        return ResponseEntity.ok(subscriptionService.mySubscriptions(userId));
     }
 }

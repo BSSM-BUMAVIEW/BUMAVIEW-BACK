@@ -1,6 +1,6 @@
 package com.bssm.bumaview.domain.subscription.application.scheduler;
 
-import com.bssm.bumaview.domain.subscription.application.SubscriptionService;
+import com.bssm.bumaview.domain.subscription.application.CommandSubscriptionService;
 import com.bssm.bumaview.domain.subscription.domain.MailSubscription;
 import com.bssm.bumaview.domain.subscription.domain.repository.MailSubscriptionRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DailyQuestionScheduler {
     private final MailSubscriptionRepository subscriptionRepo;
-    private final SubscriptionService subscriptionService;
+    private final CommandSubscriptionService subscriptionService;
 
             //(cron = "*/10 * * * * *", zone = "Asia/Seoul") 10초 마다
     @Scheduled(cron = "0 0 9 * * *", zone = "Asia/Seoul") // 매일 09:00

@@ -8,21 +8,20 @@ import com.bssm.bumaview.domain.subscription.domain.repository.MailSubscriptionR
 import com.bssm.bumaview.domain.user.domain.User;
 import com.bssm.bumaview.domain.user.domain.exception.UserNotFoundException;
 import com.bssm.bumaview.domain.user.domain.repository.UserRepository;
-import org.springframework.transaction.annotation.Transactional;
+import com.bssm.bumaview.global.annotation.CustomService;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@CustomService
 @RequiredArgsConstructor
-public class SubscriptionService {
+public class CommandSubscriptionService {
     private final MailSubscriptionRepository subscriptionRepository;
     private final UserRepository userRepository;           // 유저 이메일 조회용
     private final QuestionRepository questionRepository;
     private final MailService mailService;
 
-    @Transactional
     public void subscribe(Long loginUserId, String category) {
         User user = userRepository.findById(loginUserId)
                 .orElseThrow(()-> UserNotFoundException.EXCEPTION);
@@ -39,7 +38,6 @@ public class SubscriptionService {
         subscriptionRepository.save(sub);
     }
 
-    @Transactional
     public void unsubscribe(Long loginUserId, String category) {
         MailSubscription sub = subscriptionRepository.findByUserIdAndCategory(loginUserId, category)
                 .orElseThrow(() -> SubscriptionNotFoundException.EXCEPTION);
@@ -47,12 +45,6 @@ public class SubscriptionService {
         subscriptionRepository.save(sub);
     }
 
-    @Transactional(readOnly = true)
-    public List<MailSubscription> mySubscriptions(Long loginUserId) {
-        return subscriptionRepository.findAllByUserId(loginUserId);
-    }
-
-    @Transactional
     public void sendDailyQuestionNow(Long loginUserId) {
         List<MailSubscription> subs = subscriptionRepository.findAllByUserId(loginUserId);
 
