@@ -59,6 +59,29 @@ public class QuestionController {
         return ResponseEntity.ok(questions.stream().map(QuestionResponse::from).toList());
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<Long> getCount() {
+        return ResponseEntity.ok(questionRepository.count());
+    }
+
+    @GetMapping("/count/category")
+    public ResponseEntity<Long> countByCategory(@RequestParam String category) {
+        Long count = questionRepository.countByCategory(category);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/count/question-at")
+    public ResponseEntity<Long> countByQuestionAt(@RequestParam String questionAt) {
+        Long count = questionRepository.countByQuestionAt(questionAt);
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/count/company")
+    public ResponseEntity<Long> countByCompanyId(@RequestParam Long companyId) {
+        Long count = questionRepository.countByCompanyId(companyId);
+        return ResponseEntity.ok(count);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteQuestion(
             @PathVariable Long id,

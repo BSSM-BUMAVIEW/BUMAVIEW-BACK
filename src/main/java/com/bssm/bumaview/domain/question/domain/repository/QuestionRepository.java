@@ -18,6 +18,12 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     List<Question> findByCompanyId(Long companyId);
 
+    Long countByCategory(String category);
+
+    Long countByQuestionAt(String questionAt);
+
+    Long countByCompanyId(Long companyId);
+
     @Query(value = "SELECT * FROM questions WHERE category = :category ORDER BY RANDOM() LIMIT 1", nativeQuery = true)
     Optional<Question> findRandomByCategory(@Param("category") String category);
 
