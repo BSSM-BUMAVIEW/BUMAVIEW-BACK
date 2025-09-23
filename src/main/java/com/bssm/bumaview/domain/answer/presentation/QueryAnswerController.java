@@ -1,6 +1,7 @@
 package com.bssm.bumaview.domain.answer.presentation;
 
-import com.bssm.bumaview.domain.answer.application.AnswerService;
+import com.bssm.bumaview.domain.answer.application.CommandAnswerService;
+import com.bssm.bumaview.domain.answer.application.QueryAnswerService;
 import com.bssm.bumaview.domain.answer.application.dto.AnswerResponse;
 import com.bssm.bumaview.domain.answer.presentation.dto.AnswerRequest;
 import jakarta.validation.Valid;
@@ -15,22 +16,12 @@ import java.util.List;
 @RestController
 @RequestMapping("answers")
 @RequiredArgsConstructor
-public class AnswerController {
+public class QueryAnswerController {
 
-    private final AnswerService answerService;
-
-    @PostMapping
-    public ResponseEntity<AnswerResponse> createAnswer(
-            @RequestBody @Valid AnswerRequest request,
-            @AuthenticationPrincipal UserDetails user
-    ) {
-        Long userId = Long.parseLong(user.getUsername());
-        AnswerResponse response = answerService.createAnswer(userId, request);
-        return ResponseEntity.ok(response);
-    }
+    private final QueryAnswerService queryAnswerService;
 
     @GetMapping("/top")
     public ResponseEntity<List<AnswerResponse>> getAnswersOrderByLikes() {
-        return ResponseEntity.ok(answerService.getAnswersOrderByLikes());
+        return ResponseEntity.ok(queryAnswerService.getAnswersOrderByLikes());
     }
 }

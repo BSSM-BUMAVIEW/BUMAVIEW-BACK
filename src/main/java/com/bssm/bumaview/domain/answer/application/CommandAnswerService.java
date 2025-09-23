@@ -10,20 +10,17 @@ import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
 import com.bssm.bumaview.domain.user.domain.User;
 import com.bssm.bumaview.domain.user.domain.exception.UserNotFoundException;
 import com.bssm.bumaview.domain.user.domain.repository.UserRepository;
+import com.bssm.bumaview.global.annotation.CustomService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
-@Service
+@CustomService
 @RequiredArgsConstructor
-public class AnswerService {
+public class CommandAnswerService {
     private final AnswerRepository answerRepository;
     private final UserRepository userRepository;
     private final QuestionRepository questionRepository;
 
-    @Transactional
     public AnswerResponse createAnswer(Long userId, AnswerRequest answerRequest) {
 
         User user = userRepository.findById(userId)
@@ -37,13 +34,5 @@ public class AnswerService {
         answerRepository.save(answer);
 
         return AnswerResponse.from(answer);
-    }
-
-    @Transactional(readOnly = true)
-    public List<AnswerResponse> getAnswersOrderByLikes() {
-        List<Answer> answers = answerRepository.findAllOrderByLikeCountDesc();
-        return answers.stream()
-                .map(AnswerResponse::from)
-                .toList();
     }
 }
