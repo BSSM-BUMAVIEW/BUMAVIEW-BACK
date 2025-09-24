@@ -1,11 +1,9 @@
 package com.bssm.bumaview.domain.question.presentation;
 
 import com.bssm.bumaview.domain.question.application.CommandQuestionService;
-import com.bssm.bumaview.domain.question.application.dto.QuestionResponse;
-import com.bssm.bumaview.domain.question.domain.Question;
-import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
-import com.bssm.bumaview.domain.question.presentation.dto.QuestionRequest;
-import com.bssm.bumaview.domain.question.presentation.dto.QuestionUpdateRequest;
+import com.bssm.bumaview.domain.question.presentation.dto.response.QuestionResponse;
+import com.bssm.bumaview.domain.question.presentation.dto.request.QuestionRequest;
+import com.bssm.bumaview.domain.question.presentation.dto.request.QuestionUpdateRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

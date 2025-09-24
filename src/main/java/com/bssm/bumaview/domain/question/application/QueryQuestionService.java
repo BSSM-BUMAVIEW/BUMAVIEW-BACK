@@ -1,6 +1,6 @@
 package com.bssm.bumaview.domain.question.application;
 
-import com.bssm.bumaview.domain.question.application.dto.QuestionResponse;
+import com.bssm.bumaview.domain.question.presentation.dto.response.QuestionResponse;
 import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
 import com.bssm.bumaview.global.annotation.CustomService;
 import lombok.RequiredArgsConstructor;

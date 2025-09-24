@@ -2,13 +2,13 @@ package com.bssm.bumaview.domain.question.application;
 
 import com.bssm.bumaview.domain.company.domain.Company;
 import com.bssm.bumaview.domain.company.domain.repository.CompanyRepository;
-import com.bssm.bumaview.domain.question.application.dto.QuestionResponse;
-import com.bssm.bumaview.domain.question.application.exception.QuestionForbiddenException;
-import com.bssm.bumaview.domain.question.application.exception.QuestionNotFoundException;
+import com.bssm.bumaview.domain.question.presentation.dto.response.QuestionResponse;
+import com.bssm.bumaview.domain.question.exception.QuestionForbiddenException;
+import com.bssm.bumaview.domain.question.exception.QuestionNotFoundException;
 import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
-import com.bssm.bumaview.domain.question.presentation.dto.QuestionRequest;
-import com.bssm.bumaview.domain.question.presentation.dto.QuestionUpdateRequest;
+import com.bssm.bumaview.domain.question.presentation.dto.request.QuestionRequest;
+import com.bssm.bumaview.domain.question.presentation.dto.request.QuestionUpdateRequest;
 import com.bssm.bumaview.global.annotation.CustomService;
 import lombok.RequiredArgsConstructor;
 
