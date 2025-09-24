@@ -1,9 +1,8 @@
 package com.bssm.bumaview.domain.answer.presentation;
 
 import com.bssm.bumaview.domain.answer.application.QueryAnswerService;
-import com.bssm.bumaview.domain.answer.application.dto.AnswerResponse;
+import com.bssm.bumaview.domain.answer.presentation.dto.response.AnswerResponse;
 
-import com.bssm.bumaview.domain.answer.application.exception.AnswerNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;

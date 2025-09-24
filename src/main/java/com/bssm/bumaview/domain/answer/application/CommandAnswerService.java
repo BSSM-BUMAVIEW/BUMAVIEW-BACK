@@ -1,9 +1,9 @@
 package com.bssm.bumaview.domain.answer.application;
 
-import com.bssm.bumaview.domain.answer.application.dto.AnswerResponse;
+import com.bssm.bumaview.domain.answer.presentation.dto.response.AnswerResponse;
 import com.bssm.bumaview.domain.answer.domain.Answer;
 import com.bssm.bumaview.domain.answer.domain.repository.AnswerRepository;
-import com.bssm.bumaview.domain.answer.presentation.dto.AnswerRequest;
+import com.bssm.bumaview.domain.answer.presentation.dto.request.AnswerRequest;
 import com.bssm.bumaview.domain.question.application.exception.QuestionNotFoundException;
 import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;

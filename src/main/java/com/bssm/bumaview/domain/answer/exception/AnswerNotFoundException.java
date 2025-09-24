@@ -1,4 +1,4 @@
-package com.bssm.bumaview.domain.answer.application.exception;
+package com.bssm.bumaview.domain.answer.exception;
 
 import com.bssm.bumaview.global.error.ErrorCode;
 import com.bssm.bumaview.global.error.exception.NotFoundException;

@@ -1,7 +1,7 @@
 package com.bssm.bumaview.domain.answer.application;
 
-import com.bssm.bumaview.domain.answer.application.dto.AnswerResponse;
-import com.bssm.bumaview.domain.answer.application.exception.AnswerNotFoundException;
+import com.bssm.bumaview.domain.answer.presentation.dto.response.AnswerResponse;
+import com.bssm.bumaview.domain.answer.exception.AnswerNotFoundException;
 import com.bssm.bumaview.domain.answer.domain.Answer;
 import com.bssm.bumaview.domain.answer.domain.repository.AnswerRepository;
 import com.bssm.bumaview.global.annotation.CustomService;

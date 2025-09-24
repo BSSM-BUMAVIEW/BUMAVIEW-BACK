@@ -1,4 +1,4 @@
-package com.bssm.bumaview.domain.answer.presentation.dto;
+package com.bssm.bumaview.domain.answer.presentation.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
