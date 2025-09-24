@@ -1,8 +1,8 @@
 package com.bssm.bumaview.domain.company.presentation;
 
 import com.bssm.bumaview.domain.company.application.CommandCompanyService;
-import com.bssm.bumaview.domain.company.application.dto.CompanyResponse;
-import com.bssm.bumaview.domain.company.presentation.dto.CompanyRequest;
+import com.bssm.bumaview.domain.company.presentation.dto.response.CompanyResponse;
+import com.bssm.bumaview.domain.company.presentation.dto.request.CompanyRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

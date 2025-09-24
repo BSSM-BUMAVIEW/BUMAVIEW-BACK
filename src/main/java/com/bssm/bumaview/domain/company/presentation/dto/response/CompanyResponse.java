@@ -1,4 +1,4 @@
-package com.bssm.bumaview.domain.company.application.dto;
+package com.bssm.bumaview.domain.company.presentation.dto.response;
 
 import com.bssm.bumaview.domain.company.domain.Company;
 

@@ -1,7 +1,7 @@
 package com.bssm.bumaview.domain.company.presentation;
 
 import com.bssm.bumaview.domain.company.application.QueryCompanyService;
-import com.bssm.bumaview.domain.company.application.dto.CompanyResponse;
+import com.bssm.bumaview.domain.company.presentation.dto.response.CompanyResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
