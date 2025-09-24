@@ -1,6 +1,7 @@
 package com.bssm.bumaview.domain.answer.application;
 
 import com.bssm.bumaview.domain.answer.application.dto.AnswerResponse;
+import com.bssm.bumaview.domain.answer.application.exception.AnswerNotFoundException;
 import com.bssm.bumaview.domain.answer.domain.Answer;
 import com.bssm.bumaview.domain.answer.domain.repository.AnswerRepository;
 import com.bssm.bumaview.global.annotation.CustomService;
@@ -19,5 +20,13 @@ public class QueryAnswerService {
         return answers.stream()
                 .map(AnswerResponse::from)
                 .toList();
+    }
+
+    public AnswerResponse getMostLikedAnswer() {
+        return answerRepository.findAllOrderByLikeCountDesc()
+                .stream()
+                .findFirst()
+                .map(AnswerResponse::from)
+                .orElseThrow(() -> AnswerNotFoundException.EXCEPTION);
     }
 }

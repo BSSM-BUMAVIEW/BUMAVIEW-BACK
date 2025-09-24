@@ -3,6 +3,7 @@ package com.bssm.bumaview.domain.answer.presentation;
 import com.bssm.bumaview.domain.answer.application.QueryAnswerService;
 import com.bssm.bumaview.domain.answer.application.dto.AnswerResponse;
 
+import com.bssm.bumaview.domain.answer.application.exception.AnswerNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
@@ -20,5 +21,10 @@ public class QueryAnswerController {
     @GetMapping("/top")
     public ResponseEntity<List<AnswerResponse>> getAnswersOrderByLikes() {
         return ResponseEntity.ok(queryAnswerService.getAnswersOrderByLikes());
+    }
+
+    @GetMapping("/most-like")
+    public ResponseEntity<AnswerResponse> getMostLikedAnswer() {
+        return ResponseEntity.ok(queryAnswerService.getMostLikedAnswer());
     }
 }
