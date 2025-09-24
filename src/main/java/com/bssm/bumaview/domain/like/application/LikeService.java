@@ -8,7 +8,7 @@ import com.bssm.bumaview.domain.like.application.exception.LikeNotFoundException
 import com.bssm.bumaview.domain.like.domain.Like;
 import com.bssm.bumaview.domain.like.domain.repository.LikeRepository;
 import com.bssm.bumaview.domain.user.domain.User;
-import com.bssm.bumaview.domain.user.domain.exception.UserNotFoundException;
+import com.bssm.bumaview.domain.user.exception.UserNotFoundException;
 import com.bssm.bumaview.domain.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

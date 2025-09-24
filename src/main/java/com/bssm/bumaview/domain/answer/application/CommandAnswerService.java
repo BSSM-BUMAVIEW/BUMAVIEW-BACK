@@ -8,7 +8,7 @@ import com.bssm.bumaview.domain.question.exception.QuestionNotFoundException;
 import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.question.domain.repository.QuestionRepository;
 import com.bssm.bumaview.domain.user.domain.User;
-import com.bssm.bumaview.domain.user.domain.exception.UserNotFoundException;
+import com.bssm.bumaview.domain.user.exception.UserNotFoundException;
 import com.bssm.bumaview.domain.user.domain.repository.UserRepository;
 import com.bssm.bumaview.global.annotation.CustomService;
 import lombok.RequiredArgsConstructor;
