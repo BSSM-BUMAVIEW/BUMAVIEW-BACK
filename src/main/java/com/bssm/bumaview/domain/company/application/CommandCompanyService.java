@@ -1,5 +1,6 @@
 package com.bssm.bumaview.domain.company.application;
 
+import com.bssm.bumaview.domain.company.exception.CompanyAlreadyExistsException;
 import com.bssm.bumaview.domain.company.presentation.dto.response.CompanyResponse;
 import com.bssm.bumaview.domain.company.domain.Company;
 import com.bssm.bumaview.domain.company.domain.repository.CompanyRepository;
@@ -14,6 +15,10 @@ public class CommandCompanyService {
     private final CompanyRepository companyRepository;
 
     public CompanyResponse createCompany(CompanyRequest companyRequest) {
+
+        if (companyRepository.existsByName(companyRequest.name())) {
+            throw CompanyAlreadyExistsException.EXCEPTION;
+        }
 
         Company company = Company.of(
                 companyRequest.name(),

@@ -32,6 +32,9 @@ public enum ErrorCode {
     LIKE_ALREADY_EXISTS(HttpStatus.CONFLICT, "L-001", "이미 좋아요를 눌렀습니다."),
     LIKE_NOT_FOUND(HttpStatus.NOT_FOUND, "L-002", "좋아요를 누르지 않았습니다."),
 
+    //Company
+    COMPANY_ALREADY_EXISTS(HttpStatus.CONFLICT, "C-001", "이미 존재하는 회사입니다."),
+
     ;
 
     ErrorCode(HttpStatus httpStatus, String errorCode, String message) {
