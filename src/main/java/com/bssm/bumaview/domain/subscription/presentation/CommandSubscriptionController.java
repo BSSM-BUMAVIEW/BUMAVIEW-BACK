@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CommandSubscriptionController {
 
-    private final CommandSubscriptionService subscriptionService;
+    private final CommandSubscriptionService commandSubscriptionService;
 
     @PostMapping
     public ResponseEntity<Void> subscribe(@RequestBody @Valid SubscribeRequest subscribeRequest,
                                           @AuthenticationPrincipal UserDetails user) {
         Long userId = Long.valueOf(user.getUsername());
-        subscriptionService.subscribe(userId, subscribeRequest.category());
+        commandSubscriptionService.subscribe(userId, subscribeRequest.category());
         return ResponseEntity.ok().build();
     }
 
@@ -28,14 +28,14 @@ public class CommandSubscriptionController {
     public ResponseEntity<Void> unsubscribe(@RequestParam String category,
                                             @AuthenticationPrincipal UserDetails user) {
         Long userId = Long.valueOf(user.getUsername());
-        subscriptionService.unsubscribe(userId, category);
+        commandSubscriptionService.unsubscribe(userId, category);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/send-now")
     public ResponseEntity<Void> sendDailyNow(@AuthenticationPrincipal UserDetails user) {
         Long userId = Long.valueOf(user.getUsername());
-        subscriptionService.sendDailyQuestionNow(userId);
+        commandSubscriptionService.sendDailyQuestionNow(userId);
         return ResponseEntity.ok().build();
     }
 }

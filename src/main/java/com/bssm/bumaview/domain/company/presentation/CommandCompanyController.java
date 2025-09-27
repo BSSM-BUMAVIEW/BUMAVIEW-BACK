@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CommandCompanyController {
 
-    private final CommandCompanyService companyService;
+    private final CommandCompanyService commandCompanyService;
 
     @PostMapping
     public ResponseEntity<CompanyResponse> createCompany(
             @Valid @RequestBody CompanyRequest companyRequest
     ) {
 
-        CompanyResponse companyResponse = companyService.createCompany(companyRequest);
+        CompanyResponse companyResponse = commandCompanyService.createCompany(companyRequest);
 
         return ResponseEntity.ok(companyResponse);
     }
