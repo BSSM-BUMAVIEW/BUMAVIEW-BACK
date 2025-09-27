@@ -1,14 +1,11 @@
 package com.bssm.bumaview.domain.answer.domain;
 
-import com.bssm.bumaview.domain.company.domain.Company;
 import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "answers")
