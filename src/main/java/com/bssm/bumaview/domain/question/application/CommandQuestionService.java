@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class CommandQuestionService {
 
     private final QuestionRepository questionRepository;
-    //리펙터링 필요
+    //리펙터링 필요 (퍼사드 패턴으로)
     private final CompanyRepository companyRepository;
 
     public QuestionResponse createQuestion(Long userId, QuestionRequest questionRequest) {
