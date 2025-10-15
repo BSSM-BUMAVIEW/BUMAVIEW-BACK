@@ -1,6 +1,5 @@
 package com.bssm.bumaview.domain.subscription.domain.repository;
 
-import com.bssm.bumaview.domain.question.domain.Question;
 import com.bssm.bumaview.domain.subscription.domain.MailSubscription;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
