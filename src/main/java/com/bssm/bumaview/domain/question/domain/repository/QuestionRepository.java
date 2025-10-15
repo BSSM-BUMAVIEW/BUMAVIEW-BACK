@@ -12,6 +12,8 @@ import java.util.Optional;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
+    List<Question> findAllByCategory(String category);
+
     List<Question> findByQuestionAt(String questionAt);
 
     List<Question> findByCategory(String category);
