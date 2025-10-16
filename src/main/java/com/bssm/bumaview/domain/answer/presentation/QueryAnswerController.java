@@ -26,4 +26,13 @@ public class QueryAnswerController {
     public ResponseEntity<AnswerResponse> getMostLikedAnswer() {
         return ResponseEntity.ok(queryAnswerService.getMostLikedAnswer());
     }
+
+    @GetMapping
+    public ResponseEntity<List<AnswerResponse>> getAnswersByQuestionId(
+            @RequestParam("questionId") Long questionId
+    ) {
+        return ResponseEntity.ok(queryAnswerService.getAnswersByQuestionId(questionId));
+    }
+
+
 }

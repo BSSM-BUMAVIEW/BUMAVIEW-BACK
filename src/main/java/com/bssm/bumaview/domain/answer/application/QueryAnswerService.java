@@ -29,4 +29,17 @@ public class QueryAnswerService {
                 .map(AnswerResponse::from)
                 .orElseThrow(() -> AnswerNotFoundException.EXCEPTION);
     }
+
+    public List<AnswerResponse> getAnswersByQuestionId(Long questionId) {
+        List<Answer> answers = answerRepository.findAllByQuestionIdOrderByIdDesc(questionId);
+
+        if (answers.isEmpty()) {
+            throw AnswerNotFoundException.EXCEPTION;
+        }
+
+        return answers.stream()
+                .map(AnswerResponse::from)
+                .toList();
+    }
+
 }

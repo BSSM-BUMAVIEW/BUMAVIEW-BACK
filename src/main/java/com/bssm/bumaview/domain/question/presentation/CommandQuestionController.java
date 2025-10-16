@@ -85,11 +85,20 @@ public class CommandQuestionController {
     }
 
 
-    @PostMapping("/upload")
+    /*@PostMapping("/upload")
     public ResponseEntity<String> uploadBulkQuestions(
             @RequestParam("file") MultipartFile file,
             @RequestParam("userId") Long userId
     ) {
+        commandQuestionService.uploadBulkQuestions(userId, file);
+        return ResponseEntity.ok("질문들이 정상적으로 등록되었습니다.");
+    }*/
+    @PostMapping("/upload")
+    public ResponseEntity<String> uploadBulkQuestions(
+            @RequestParam("file") MultipartFile file,
+            @AuthenticationPrincipal UserDetails user
+    ) {
+        Long userId = Long.parseLong(user.getUsername());
         commandQuestionService.uploadBulkQuestions(userId, file);
         return ResponseEntity.ok("질문들이 정상적으로 등록되었습니다.");
     }

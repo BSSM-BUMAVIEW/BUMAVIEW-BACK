@@ -18,4 +18,7 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
         ORDER BY COUNT(l) DESC
     """)
     List<Answer> findAllOrderByLikeCountDesc();
+
+    List<Answer> findAllByQuestionIdOrderByIdDesc(Long questionId);
+
 }

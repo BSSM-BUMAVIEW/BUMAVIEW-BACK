@@ -318,7 +318,7 @@ public class CommandSubscriptionService {
                             당신의 답변 품질이 체스 AI의 실력을 결정합니다.<br>
                             좋은 답변을 통해 강력한 AI와 함께 승리하세요!
                         </div>
-                        <a href="https://gptonline.ai/ko/" class="cta-button">답변하기</a>
+                        <a href="http://localhost:3003/dashboard" class="cta-button">답변하기</a>
                     </div>
 
                     <div class="footer">
